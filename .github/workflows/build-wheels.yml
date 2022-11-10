@@ -97,7 +97,7 @@ jobs:
         - os: ubuntu-latest
           manylinux-version: 2014
           python-version: "3.11"
-          build-depends: numpy==1.23.0 scipy==1.9.2
+          build-depends: numpy==1.23.2 scipy==1.9.2
 
         - os: macos-latest
           travis-os-name: osx
@@ -127,7 +127,7 @@ jobs:
           travis-os-name: osx
           manylinux-version: 1
           python-version: "3.11"
-          build-depends: numpy==1.23.0 scipy==1.9.2
+          build-depends: numpy==1.23.2 scipy==1.9.2
 
         - os: windows-latest
           manylinux-version: 2010
@@ -152,7 +152,7 @@ jobs:
         - os: windows-latest
           manylinux-version: 2010
           python-version: "3.11"
-          build-depends: numpy==1.23.0 scipy==1.9.2
+          build-depends: numpy==1.23.2 scipy==1.9.2
 
     env:
       PKG_NAME: gensim
