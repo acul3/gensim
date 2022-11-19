@@ -135,14 +135,15 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y gdb
           ulimit -c unlimited -S  # enable core dumps
-      
-      - name: Install gensim and its dependencies for python 3.11
-        if: matrix.os != 'windows' && matrix.python == '3.11'
-        run: pip install -e .
 
       - name: Install gensim and its dependencies
         if: matrix.os != 'windows'
-        run: pip install -e .[test]
+        run: |
+          if [ ${{ matrix.python }} == '3.11' ]; then
+            pip install -e .
+          else
+            pip install -e .[test]
+
 
       - name: Install gensim and its dependencies (Windows)
         if: matrix.os == 'windows'
