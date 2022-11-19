@@ -65,7 +65,6 @@ jobs:
           sudo apt-get -yq remove texlive-binaries --purge
           sudo apt-get -yq --no-install-suggests --no-install-recommends --force-yes install dvipng texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk
           sudo apt-get -yq install build-essential python3.8-dev
-
       - name: Install gensim and its dependencies
         run: pip install -e .[docs]
 
@@ -73,7 +72,6 @@ jobs:
         run: |
           python setup.py build_ext --inplace
           make -C docs/src clean html
-
       #
       # FIXME: do we want to store the built documentation somewhere, or is
       # knowing that the docs built successfully enough?
@@ -131,15 +129,15 @@ jobs:
           curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
           sudo apt-get update -y
           sudo apt-get install -y sbt
-
       - name: Install GDB & enable core dumps
         if: matrix.os == 'ubuntu-20.04'
         run: |
           sudo apt-get update -y
           sudo apt-get install -y gdb
           ulimit -c unlimited -S  # enable core dumps
-
       - name: Install gensim and its dependencies
+        if: matrix.os != 'windows' && matrix.python == "3.11"
+        run: pip install -e .
         if: matrix.os != 'windows'
         run: pip install -e .[test]
 
@@ -152,7 +150,6 @@ jobs:
           python --version
           pip --version
           python setup.py build_ext --inplace
-
       #
       # Some of our tests are hanging, and I strongly suspect it's because of the coverage plugin.
       #
